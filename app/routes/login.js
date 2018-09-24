@@ -1,30 +1,26 @@
 var express = require('express');
 var router = express.Router();
 
-var passport = require('passport');
-var GitHubStrategy = require('passport-github').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
+var passport = require('../config/passport');
 
 var AuthController = require('../controllers/AuthController');
 
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.APP_URL + "/auth/github/callback"
-  },
-  AuthController.githubHandler
-));
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })
+);
 
-passport.use(new GoogleStrategy({
-    consumerKey: process.env.GOOGLE_CONSUMER_KEY,
-    consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
-    callbackURL: process.env.APP_URL + "/auth/google/callback"
-  },
-  AuthController.googleHandler
-));
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  AuthController.googleCallback
+);
 
-router.get("/auth/github/callback", () => { return 0; } );
-router.get("/auth/google/callback", () => { return 0; } );
+app.get('/auth/github',
+  passport.authenticate('github')
+);
 
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  AuthController.githubCallback
+);
 
 module.exports = router;

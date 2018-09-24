@@ -28,3 +28,9 @@ module.exports = {
     return queryInterface.dropTable('Labs');
   }
 };
+
+var method = function() {
+  return 0;
+
+  
+}
