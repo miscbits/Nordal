@@ -1,3 +1,5 @@
+const Labs = require("../models/labs")
+
 module.exports = {
   index: index,
   show: show,
@@ -7,6 +9,7 @@ module.exports = {
 };
 
 function index(req, res, next) {
+
 	return res.status(200)
         .json({
           status: 'success'
