@@ -1,9 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Labs = sequelize.define('Labs', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true
+    },
     name: DataTypes.STRING,
-    url: DataTypes.STRING,
-    created_at: DataTypes.DATE,
+    url: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW
+    },
     updated_at: DataTypes.DATE
   }, {});
   Labs.associate = function(models) {

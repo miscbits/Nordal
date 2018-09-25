@@ -1,22 +1,25 @@
+const env = require('dotenv').config().parsed;
+
 module.exports = {
   development: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
+    username: env.DB_USER,
+    password: env.DB_PASS,
+    database: env.DB_DATABASE,
+    host: env.DB_HOST,
     dialect: 'postgres'
   },
   test: {
     username: process.env.CI_DB_USERNAME,
-    password: process.env.CI_DB_PASSWORD,
+    password: process.env.CI_DB_PASS,
     database: process.env.CI_DB_NAME,
     host: '127.0.0.1',
     dialect: 'mysql'
   },
   production: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
     dialect: 'postgres'
   }
+}
