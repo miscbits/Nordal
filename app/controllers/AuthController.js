@@ -1,10 +1,6 @@
 const axios = require('axios');
-client_id
-client_secret
-code
-redirect_uri
-state
 const Student = require("../models/student");
+
 module.exports = {
     github: function(req, res, next) {
         axios.post('https://github.com/login/oauth/access_token', {
@@ -46,10 +42,7 @@ module.exports = {
                     })
                     .then((student) => {
                         return res.status(200).json(student);
-                    })
-                    .catch(error) {
-                        next(error)
-                    };
+                    });
                 }
 
                 return res.status(200).json(student);
