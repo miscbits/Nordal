@@ -7,16 +7,16 @@ module.exports = {
             params: {
                 client_id: process.env.GITHUB_CLIENT_ID,
                 client_secret: process.env.GITHUB_CLIENT_SECRET,
-                code: req.params.code,
-                redirect_uri: req.params.redirect_uri,
-                state: req.params.state 
+                code: req.headers.code,
+                redirect_uri: req.headers.redirect_uri,
+                state: req.headers.state 
             }
         })
         .then((response) => {
             const response = response;
         })
         .catch((error) => {
-            return next(error);
+            return next(error, req, res, next);
         });
 
         axios.get('https://github.com/user', {
@@ -35,8 +35,8 @@ module.exports = {
                 }
                 if (student.github_id == null) {
                     student.save({
-                        github_id: resposne.id,
-                        github_username: resposne.login,
+                        github_id: response.id,
+                        github_username: response.login,
                         name: response.name,
                         email: response.email
                     })
@@ -53,7 +53,36 @@ module.exports = {
         });
     },
     google: function(req, res, next) {
-
+        axios.post('https://www.googleapis.com/oauth2/v4/token', {
+            params: {
+                code: req.headers.code,
+                redirect_uri: req.headers.redirect_uri,
+                client_id: process.env.GOOGLE_CONSUMER_KEY,
+                client_secret: process.env.GOOGLE_CONSUMER_SECRET,
+                grant_type: "authorization_code"
+            }
+        })
+        .then((response) => {
+            axios.get("https://www.googleapis.com/plusDomains/v1/people/me", {
+                headers: {
+                    Authorization: "Bearer " + response.access_token
+                }
+            })
+            .then((person) => {
+                if (person.domain != "zipcodewilmington.com") {
+                    return res.status(413).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
+                }
+                else {
+                    return res.status(200).json({person: person, access_token: response.access_token});
+                }
+            })
+            .catch((err) => {
+                return next(err)
+            });
+        })
+        .catch((error) => {
+            return next(error);
+        });
     }
 }
 
