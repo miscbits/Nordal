@@ -13,44 +13,43 @@ module.exports = {
             }
         })
         .then((response) => {
-            const response = response;
-        })
-        .catch((error) => {
-            return next(error, req, res, next);
-        });
+            axios.get('https://github.com/user', {
+                params: {
+                    access_token: response.access_token
+                }
+            })
+            .then((response) => {
+                Student.findOne({
+                    where: {
+                        github_username: response.login
+                    }
+                }).then((student) => {
+                    if (student == null) {
+                        return res.status(413).send('Github username is not a listed student')
+                    }
+                    if (student.github_id == null) {
+                        student.save({
+                            github_id: response.id,
+                            github_username: response.login,
+                            name: response.name,
+                            email: response.email
+                        })
+                        .then((student) => {
+                            return res.status(200).json({student: student, access_token: response.access_token});
+                        });
+                    }
 
-        axios.get('https://github.com/user', {
-            params: {
-                access_token: response.access_token
-            }
-        })
-        .then((response) => {
-            Student.findOne({
-                where: {
-                    github_username: response.login
-                }
-            }).then((student) => {
-                if (student == null) {
-                    return res.status(413).send('Github username is not a listed student')
-                }
-                if (student.github_id == null) {
-                    student.save({
-                        github_id: response.id,
-                        github_username: response.login,
-                        name: response.name,
-                        email: response.email
-                    })
-                    .then((student) => {
-                        return res.status(200).json({student: student, access_token: response.access_token});
-                    });
-                }
-
-                return res.status(200).json({student: student, access_token: response.access_token});
+                    return res.status(200).json({student: student, access_token: response.access_token});
+                });
+            })
+            .catch((error) => {
+                return next(error);
             });
         })
         .catch((error) => {
             return next(error);
         });
+
     },
     google: function(req, res, next) {
         axios.post('https://www.googleapis.com/oauth2/v4/token', {
