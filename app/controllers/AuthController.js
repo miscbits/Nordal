@@ -5,28 +5,33 @@ const querystring = require('querystring');
 module.exports = {
     github: function(req, res, next) {
         axios.post('https://github.com/login/oauth/access_token', {
-            params: {
-                client_id: process.env.GITHUB_CLIENT_ID,
-                client_secret: process.env.GITHUB_CLIENT_SECRET,
-                code: req.headers.code,
-                redirect_uri: req.headers.redirect_uri,
-                state: req.headers.state 
-            }
+            client_id: process.env.GITHUB_CLIENT_ID,
+            client_secret: process.env.GITHUB_CLIENT_SECRET,
+            code: req.headers.code,
+            redirect_uri: req.headers.redirect_uri,
+            state: req.headers.state
+        },
+        {
+            headers: {
+                Accept: "application/json"
+            },
         })
         .then((response) => {
-            axios.get('https://github.com/user', {
-                params: {
-                    access_token: response.access_token
+            axios.get('https://api.github.com/user', {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "token " + response.data.access_token
                 }
             })
             .then((response) => {
+                console.log(response);
                 Student.findOne({
                     where: {
                         github_username: response.login
                     }
                 }).then((student) => {
                     if (student == null) {
-                        return res.status(413).send('Github username is not a listed student')
+                        return res.status(413).json('Github username is not a listed student')
                     }
                     if (student.github_id == null) {
                         student.save({
@@ -44,6 +49,7 @@ module.exports = {
                 });
             })
             .catch((error) => {
+                console.log(error);
                 return next(error);
             });
         })
@@ -66,21 +72,20 @@ module.exports = {
             },
         })
         .then((response) => {
-            axios.get("https://www.googleapis.com/plusDomains/v1/people/me", {
+            axios.get("https://www.googleapis.com/userinfo/v2/me", {
                 headers: {
-                    Authorization: "Bearer " + response.access_token
+                    Authorization: "Bearer " + response.data.access_token
                 }
             })
             .then((person) => {
-                if (person.domain != "zipcodewilmington.com") {
+                if (person.data.hd != "zipcodewilmington.com") {
                     return res.status(413).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
                 }
                 else {
-                    return res.status(200).json({person: person, access_token: response.access_token});
+                    return res.status(200).json({person: person.data, access_token: response.access_token});
                 }
             })
             .catch((error) => {
-                console.log(error)
                 return next(error)
             });
         })
