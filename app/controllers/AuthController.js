@@ -41,11 +41,11 @@ module.exports = {
                         email: response.email
                     })
                     .then((student) => {
-                        return res.status(200).json(student);
+                        return res.status(200).json({student: student, access_token: response.access_token});
                     });
                 }
 
-                return res.status(200).json(student);
+                return res.status(200).json({student: student, access_token: response.access_token});
             });
         })
         .catch((error) => {
