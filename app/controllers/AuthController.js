@@ -1,5 +1,6 @@
 const axios = require('axios');
 const Student = require("../models/student");
+const querystring = require('querystring');
 
 module.exports = {
     github: function(req, res, next) {
@@ -52,14 +53,17 @@ module.exports = {
 
     },
     google: function(req, res, next) {
-        axios.post('https://www.googleapis.com/oauth2/v4/token', {
-            params: {
-                code: req.headers.code,
-                redirect_uri: req.headers.redirect_uri,
-                client_id: process.env.GOOGLE_CONSUMER_KEY,
-                client_secret: process.env.GOOGLE_CONSUMER_SECRET,
-                grant_type: "authorization_code"
-            }
+        axios.post('https://www.googleapis.com/oauth2/v4/token', querystring.stringify({
+            code: req.headers.code,
+            redirect_uri: req.headers.redirect_uri,
+            client_id: process.env.GOOGLE_CONSUMER_KEY,
+            client_secret: process.env.GOOGLE_CONSUMER_SECRET,
+            grant_type: "authorization_code"
+        }),
+        {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded"
+            },
         })
         .then((response) => {
             axios.get("https://www.googleapis.com/plusDomains/v1/people/me", {
@@ -76,6 +80,7 @@ module.exports = {
                 }
             })
             .catch((error) => {
+                console.log(error)
                 return next(error)
             });
         })
