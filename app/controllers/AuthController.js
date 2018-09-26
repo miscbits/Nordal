@@ -75,8 +75,8 @@ module.exports = {
                     return res.status(200).json({person: person, access_token: response.access_token});
                 }
             })
-            .catch((err) => {
-                return next(err)
+            .catch((error) => {
+                return next(error)
             });
         })
         .catch((error) => {
