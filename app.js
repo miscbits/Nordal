@@ -9,6 +9,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./app/routes/index');
 var labsRouter = require('./app/routes/labs');
+var studentsRouter = require('./app/routes/student');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/labs', labsRouter);
+app.use('/students', studentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

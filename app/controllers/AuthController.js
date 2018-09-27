@@ -18,6 +18,7 @@ module.exports = {
             },
         })
         .then((response) => {
+            console.log("access_token: " + response.data.access_token);
             axios.get('https://api.github.com/user', {
                 headers: {
                     Accept: "application/json",
