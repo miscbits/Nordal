@@ -1,5 +1,6 @@
 const axios = require('axios');
-const Student = require("../models/student");
+const sequelize = require('../models').sequelize;
+const Student = sequelize.import("../models/student");
 const querystring = require('querystring');
 
 module.exports = {
@@ -24,32 +25,38 @@ module.exports = {
                 }
             })
             .then((response) => {
-                console.log(response);
                 Student.findOne({
                     where: {
-                        github_username: response.login
+                        github_username: response.data.login
                     }
-                }).then((student) => {
+                }).then((students) => {
+                    const student = students.dataValues;
                     if (student == null) {
                         return res.status(413).json('Github username is not a listed student')
                     }
-                    if (student.github_id == null) {
-                        student.save({
-                            github_id: response.id,
-                            github_username: response.login,
-                            name: response.name,
-                            email: response.email
+                    else if (student.github_id == null) {
+                        Student.update({
+                            github_id: response.data.id,
+                            github_username: response.data.login,
+                            name: response.data.name,
+                            email: response.data.email
+                        },
+                        {
+                            where: {
+                                id: student.id
+                            }
                         })
                         .then((student) => {
-                            return res.status(200).json({student: student, access_token: response.access_token});
+                            return res.status(200).json({student: student.dataValues, access_token: response.data.access_token});
                         });
                     }
+                    else {
+                        return res.status(200).json({student: student, access_token: response.data.access_token});
+                    }
 
-                    return res.status(200).json({student: student, access_token: response.access_token});
                 });
             })
             .catch((error) => {
-                console.log(error);
                 return next(error);
             });
         })

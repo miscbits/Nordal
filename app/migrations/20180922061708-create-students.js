@@ -8,25 +8,33 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: DataTypes.STRING,
-      cell_number: DataTypes.INTEGER,
+      name: Sequelize.STRING,
+      cell_number: Sequelize.INTEGER,
       email: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         unique: true
       },
-      github_id: DataTypes.INTEGER,
-      github_username: DataTypes.STRING,
+      github_id: {
+        type: Sequelize.INTEGER,
+        unique: true
+      },
+      github_username: {
+        type: Sequelize.STRING,
+        unique: true
+      },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('students');
   }
 };

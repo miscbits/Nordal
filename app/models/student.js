@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Student = sequelize.define('students', {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
     name: DataTypes.STRING,
@@ -12,7 +12,17 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     github_id: DataTypes.INTEGER,
-    github_username: DataTypes.STRING
+    github_username: DataTypes.STRING,
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updated_at: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    }
   }, {});
   
   Student.associate = function(models) {

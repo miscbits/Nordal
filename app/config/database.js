@@ -6,7 +6,10 @@ module.exports = {
     password: env.DB_PASS,
     database: env.DB_DATABASE,
     host: env.DB_HOST,
-    dialect: 'postgres'
+    dialect: 'postgres',
+    define: {
+        timestamps: false
+    }
   },
   test: {
     username: process.env.CI_DB_USERNAME,
@@ -20,6 +23,9 @@ module.exports = {
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
     host: process.env.DB_HOST,
-    dialect: 'postgres'
+    dialect: 'postgres',
+    define: {
+        timestamps: false
+    }
   }
 }

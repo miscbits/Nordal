@@ -1,8 +1,9 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const Labs = sequelize.define('Labs', {
+  const Labs = sequelize.define('labs', {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true
     },
     name: DataTypes.STRING,
@@ -12,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: Sequelize.NOW
+      defaultValue: DataTypes.NOW
     },
     updated_at: DataTypes.DATE
   }, {});
