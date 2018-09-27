@@ -32,7 +32,7 @@ module.exports = {
                 }).then((students) => {
                     const student = students.dataValues;
                     if (student == null) {
-                        return res.status(413).json('Github username is not a listed student')
+                        return res.status(401).json('Github username is not a listed student')
                     }
                     else if (student.github_id == null) {
                         Student.update({
@@ -86,7 +86,7 @@ module.exports = {
             })
             .then((person) => {
                 if (person.data.hd != "zipcodewilmington.com") {
-                    return res.status(413).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
+                    return res.status(401).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
                 }
                 else {
                     return res.status(200).json({person: person.data, access_token: response.access_token});
