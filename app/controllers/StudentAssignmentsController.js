@@ -6,6 +6,7 @@ const Lab = models.labs;
 
 module.exports = {
   index: index,
+  assign: assign,
   update: update,
   destroy: destroy
 };
@@ -22,6 +23,25 @@ function index(req, res, next) {
       .catch(err => {
         return next(err)
       }
+    );
+}
+
+function assign(req, res, next) {
+    student_promise = Student.findAll();
+    lab_promise = Lab.findById(req.params.id);
+
+    Promise.all([student_promise, lab_promise])
+        .then(values => {
+            let students = values[0];
+            let lab = values[1];
+
+            lab.setStudents(students).then((associatedStudents) => {
+                return res.status(200).json({message: "success"});
+            });
+        })
+        .catch(err => {
+            return next(err);
+        }
     );
 }
 

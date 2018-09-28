@@ -11,6 +11,8 @@ router.post  ('/',    StudentController.store);
 router.put   ('/:id', StudentController.update);
 router.delete('/:id', StudentController.destroy);
 
+router.post('/assign/:id', StudentAssignmentsController.assign)
+
 router.get   ('/:student_id/assignments/',    StudentAssignmentsController.index);
 router.put   ('/:student_id/assignments/:id', StudentAssignmentsController.update);
 router.delete('/:student_id/assignments/:id', StudentAssignmentsController.destroy);
