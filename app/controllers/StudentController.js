@@ -1,5 +1,5 @@
-const sequelize = require('../models').sequelize;
-const Student = sequelize.import("../models/student");
+const models = require('../models');
+const Student = models.students;
 
 module.exports = {
   index: index,

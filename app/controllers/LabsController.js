@@ -1,5 +1,5 @@
-const sequelize = require('../models').sequelize;
-const Lab = sequelize.import("../models/labs");
+const models = require('../models');
+const Lab = models.labs;
 
 module.exports = {
   index: index,

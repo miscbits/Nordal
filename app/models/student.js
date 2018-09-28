@@ -1,7 +1,5 @@
 'use strict';
 
-const Lab = require('./labs')
-
 module.exports = (sequelize, DataTypes) => {
   const Student = sequelize.define('students', {
     id: {
@@ -29,14 +27,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   
-  Student.belongsToMany(Lab,
+  Student.associate = function(models) {
+    Student.belongsToMany(models.labs,
     {
         as: 'Assignments',
         through: 'assignments',
         foreignKey: 'student_id',
         otherKey: 'lab_id'
-    }
-  );
+    });
+  }
 
   return Student;
 };

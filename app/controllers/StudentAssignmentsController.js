@@ -1,6 +1,6 @@
-const sequelize = require('../models').sequelize;
-const Student = sequelize.import("../models/student");
-const Lab = sequelize.import("../models/labs");
+const models = require('../models');
+const Student = models.students;
+const Lab = models.labs;
 
 
 
@@ -13,8 +13,9 @@ module.exports = {
 function index(req, res, next) {
     Student.findById(req.params.student_id)
       .then((student) => {
-        student.getLabs(assignments => {
-          return res.status(200).json(assignments);
+        student.getAssignments(assignments => {
+            console.log(assignments);
+            return res.status(200).json(assignments);
         })
       })
       .catch(err => {
