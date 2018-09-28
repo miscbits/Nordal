@@ -13,7 +13,8 @@ module.exports = {
 function index(req, res, next) {
     Student.findById(req.params.student_id)
       .then((student) => {
-        student.getAssignments(assignments => {
+        student.getAssignments()
+        .then(assignments => {
             console.log(assignments);
             return res.status(200).json(assignments);
         })
@@ -34,7 +35,7 @@ function update(req, res, next) {
             let lab = values[1];
 
             student.addAssignment(lab).then(() => {
-                return res.status(201).json(student);
+                return res.status(201).json({student: student, lab: lab});
             });
         })
         .catch(err => {
