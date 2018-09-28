@@ -17,12 +17,12 @@ module.exports = {
                 Accept: "application/json"
             },
         })
-        .then((response) => {
-            console.log("access_token: " + response.data.access_token);
+        .then((token_response) => {
+            console.log("access_token: " + token_response.data.access_token);
             axios.get('https://api.github.com/user', {
                 headers: {
                     Accept: "application/json",
-                    Authorization: "token " + response.data.access_token
+                    Authorization: "token " + token_response.data.access_token
                 }
             })
             .then((response) => {
@@ -48,11 +48,11 @@ module.exports = {
                             }
                         })
                         .then((student) => {
-                            return res.status(200).json({student: student.dataValues, access_token: response.data.access_token});
+                            return res.status(200).json({student: student.dataValues, access_token: token_response.data.access_token});
                         });
                     }
                     else {
-                        return res.status(200).json({student: student, access_token: response.data.access_token});
+                        return res.status(200).json({student: student, access_token: token_response.data.access_token});
                     }
 
                 });
@@ -102,4 +102,3 @@ module.exports = {
         });
     }
 }
-
