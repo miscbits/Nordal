@@ -1,7 +1,6 @@
 const sequelize = require('../models').sequelize;
 const Labs = sequelize.import("../models/labs");
 
-
 module.exports = {
   index: index,
   show: show,

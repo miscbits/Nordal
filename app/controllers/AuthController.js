@@ -90,7 +90,7 @@ module.exports = {
                     return res.status(401).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
                 }
                 else {
-                    return res.status(200).json({person: person.data, access_token: response.access_token});
+                    return res.status(200).json({person: person.data, access_token: response.data.access_token});
                 }
             })
             .catch((error) => {

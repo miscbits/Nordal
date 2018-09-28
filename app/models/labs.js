@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     },
-    updated_at: DataTypes.DATE
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    }
   }, {});
   Labs.associate = function(models) {
     // associations can be defined here
