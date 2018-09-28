@@ -6,7 +6,7 @@ var UserIsStaff = require('../middleware/UserIsStaff');
 
 router.get('/', LabsController.index);
 router.get('/:id', LabsController.show);
-router.post('', UserIsStaff, LabsController.store);
+router.post('', LabsController.store);
 router.put('/:id', LabsController.update);
 router.delete('/:id', LabsController.destroy);
 

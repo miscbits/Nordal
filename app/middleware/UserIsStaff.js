@@ -1,3 +1,5 @@
+var axios = require('axios')
+
 module.exports = (req, res, next) => {
 	var access_token = req.headers.access_token;
 
