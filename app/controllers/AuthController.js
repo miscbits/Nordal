@@ -39,16 +39,17 @@ module.exports = {
                         Student.update({
                             github_id: response.data.id,
                             github_username: response.data.login,
-                            name: response.data.name,
-                            email: response.data.email
+                            name: response.data.name
+                            // email: response.data.email
                         },
                         {
                             where: {
                                 id: student.id
-                            }
+                            },
+                            returning: true
                         })
-                        .then((student) => {
-                            return res.status(200).json({student: student.dataValues, access_token: token_response.data.access_token});
+                        .then((updated_response) => {
+                            return res.status(200).json({student: updated_response[1][0].dataValues, access_token: token_response.data.access_token});
                         });
                     }
                     else {
