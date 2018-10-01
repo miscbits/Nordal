@@ -4,10 +4,10 @@ var router = express.Router();
 var SubmissionsController = require('../controllers/SubmissionsController');
 
 // ROUTE BASE - /submissions
-router.get('/', LabsController.index);
-router.get('/:id', LabsController.show);
-router.post('', LabsController.store);
-router.put('/:id', LabsController.update);
-router.delete('/:id', LabsController.destroy);
+router.get('/', SubmissionsController.index);
+router.get('/:id', SubmissionsController.show);
+router.post('', SubmissionsController.store);
+router.put('/:id', SubmissionsController.update);
+router.delete('/:id', SubmissionsController.destroy);
 
 module.exports = router;

@@ -62,7 +62,7 @@ function update(req, res, next) {
                 updateVals.max_score = req.body.max_score;
             }
 
-            assessment.update(updateVals).
+            assessment.update(updateVals)
                 .then((updatedAssessment) => {
                     return res.status(200).json(updatedAssessment);
                 })
