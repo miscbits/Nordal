@@ -29,10 +29,10 @@ function show(req, res, next) {
 
 function store(req, res, next) {
   transientSubmission = {
-      url: req.body.url
-    , name: req.body.name
-    , due_date: req.body.due_date
-    , assigned_date: req.body.assigned_date
+      pr_url: req.body.pr_url
+    , submittable: req.body.submittable
+    , student_id: req.body.student_id
+    , submittable_id: req.body.submittable_id
   }
 
   Submission.build(transientSubmission)
@@ -53,23 +53,23 @@ function update(req, res, next) {
         .then((submission) => {
             let updateVals = {};
 
-            if (req.body.url) {
-                updateVals.url = req.body.url;
+            if (req.body.pr_url) {
+                updateVals.pr_url = req.body.pr_url;
             }
-            if (req.body.name) {
-                updateVals.name = req.body.name;
+            if (req.body.submittable) {
+                updateVals.submittable = req.body.submittable;
             }
-            if (req.body.due_date) {
-                updateVals.due_date = req.body.due_date;
+            if (req.body.student_id) {
+                updateVals.student_id = req.body.student_id;
             }
-            if (req.body.assigned_date) {
-                updateVals.assigned_date = req.body.assigned_date;
+            if (req.body.submittable_id) {
+                updateVals.submittable_id = req.body.submittable_id;
             }
 
             submission.update(updateVals)
                 .then((updatedSubmission) => {
                     return res.status(200).json(updatedSubmission);
-                })
+                });
         })
         .catch(err => {
             return res.status(404).json({message: "Submission not found"});
