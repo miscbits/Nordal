@@ -5,6 +5,7 @@ var StudentController = require('../controllers/StudentController');
 var StudentAssignmentsController = require('../controllers/StudentAssignmentsController');
 var UserIsStaff = require('../middleware/UserIsStaff');
 
+// ROUTE BASE - /students
 router.get   ('/',    StudentController.index);
 router.get   ('/:id', StudentController.show);
 router.post  ('/',    StudentController.store);

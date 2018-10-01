@@ -8,7 +8,8 @@ module.exports = {
     host: env.DB_HOST,
     dialect: 'postgres',
     define: {
-        timestamps: false
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
     }
   },
   test: {

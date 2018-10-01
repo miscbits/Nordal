@@ -4,6 +4,7 @@ var router = express.Router();
 var LabsController = require('../controllers/LabsController');
 var UserIsStaff = require('../middleware/UserIsStaff');
 
+// ROUTE BASE - /labs
 router.get('/', LabsController.index);
 router.get('/:id', LabsController.show);
 router.post('', LabsController.store);

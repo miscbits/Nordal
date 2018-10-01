@@ -2,8 +2,6 @@ const models = require('../models');
 const Student = models.students;
 const Lab = models.labs;
 
-
-
 module.exports = {
   index: index,
   assign: assign,
@@ -16,7 +14,6 @@ function index(req, res, next) {
       .then((student) => {
         student.getAssignments()
         .then(assignments => {
-            console.log(assignments);
             return res.status(200).json(assignments);
         })
       })
@@ -34,10 +31,16 @@ function assign(req, res, next) {
         .then(values => {
             let students = values[0];
             let lab = values[1];
+            lab.assigned_date = models.sequelize.fn('NOW');
 
-            lab.setStudents(students).then((associatedStudents) => {
+            Promise.all([lab.setStudents(students), lab.save()])
+            .then((associatedStudents) => {
                 return res.status(200).json({message: "success"});
+            })
+            .catch(err => {
+                return next(err);
             });
+
         })
         .catch(err => {
             return next(err);
