@@ -3,7 +3,7 @@ var router = express.Router();
 
 var AssessmentsController = require('../controllers/AssessmentsController');
 
-// ROUTE BASE - /labs
+// ROUTE BASE - /assessments
 router.get('/', AssessmentsController.index);
 router.get('/:id', AssessmentsController.show);
 router.post('', AssessmentsController.store);

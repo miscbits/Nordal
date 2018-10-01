@@ -36,6 +36,15 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'lab_id',
       otherKey: 'student_id'
     });
+
+    Labs.hasOne(models.submissions,
+    {
+      as: 'submission',
+      foreignKey: 'submittable_id',
+      scope: {
+        submittable: 'lab'
+      }
+    });
   };
 
   return Labs;

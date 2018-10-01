@@ -6,7 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     max_score: DataTypes.INTEGER
   }, {});
   assessments.associate = function(models) {
-    // associations can be defined here
+    assessments.hasOne(models.submissions,
+    {
+      as: 'submission',
+      foreignKey: 'submittable_id',
+      scope: {
+        submittable: 'assessment'
+      }
+    });
   };
   return assessments;
 };
