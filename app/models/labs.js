@@ -19,6 +19,12 @@ module.exports = (sequelize, DataTypes) => {
     updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
+    },
+    assigned_date: {
+      type: DataTypes.DATE,
+    },
+    due_date: {
+      type: DataTypes.DATE,
     }
   }, {});
 
