@@ -18,6 +18,10 @@ module.exports = {
       max_score: {
         type: Sequelize.INTEGER
       },
+      assigned_at: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
