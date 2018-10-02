@@ -32,6 +32,7 @@ function store(req, res, next) {
       url: req.body.url
     , level: req.body.level
     , max_score: req.body.max_score
+    , name: req.body.name
   }
 
   Assessment.build(transientAssessment)
@@ -54,6 +55,9 @@ function update(req, res, next) {
 
             if (req.body.url) {
                 updateVals.url = req.body.url;
+            }
+            if (req.body.name) {
+                updateVals.name = req.body.name;
             }
             if (req.body.level) {
                 updateVals.level = req.body.level;
