@@ -21,7 +21,7 @@ module.exports = {
       max_score: {
         type: Sequelize.INTEGER
       },
-      assigned_at: {
+      assigned_date: {
         allowNull: true,
         type: Sequelize.DATE,
       },
