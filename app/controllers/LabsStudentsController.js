@@ -1,5 +1,6 @@
 const models = require('../models');
 const Lab = models.labs;
+const Op = models.Sequelize.Op;
 
 module.exports = {
   show: show
@@ -13,9 +14,11 @@ function show(req, res, next) {
         model: models.submissions,
         as: "submissions",
         where: {
-          submittable_id: lab.id,
-          submittable: 'lab' 
-        }
+          submittable: 'lab',
+          submittable_id: lab.id
+        },
+        required:false
+
       }]
     })
     .then(students => {
