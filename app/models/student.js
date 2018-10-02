@@ -28,12 +28,16 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   
   Student.associate = function(models) {
-    Student.belongsToMany(models.labs,
-    {
-        as: 'Assignments',
+    Student.belongsToMany(models.labs, {
+        as: 'labs',
         through: 'assignments',
         foreignKey: 'student_id',
         otherKey: 'lab_id'
+    });
+
+    Student.hasMany(models.submissions, {
+        as: "submissions",
+        foreignKey: 'student_id'
     });
   }
 

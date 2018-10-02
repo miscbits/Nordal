@@ -17,8 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'submittable_id',
       constraints: false,
       as: 'assessment'
+    });
+
+    submissions.belongsTo(models.students, {
+      foreignKey: 'student_id',
+      constraints: false,
+      as: "students"
     });    
-  };
+};
 
   return submissions;
 };

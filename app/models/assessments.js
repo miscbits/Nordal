@@ -2,6 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   const assessments = sequelize.define('assessments', {
     url: DataTypes.STRING,
+    name: DataTypes.STRING,
+    assigned_date: DataTypes.DATE,
     level: DataTypes.ENUM('Quiz', 'Practice', 'Exam'),
     max_score: DataTypes.INTEGER
   }, {});

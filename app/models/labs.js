@@ -31,15 +31,15 @@ module.exports = (sequelize, DataTypes) => {
   Labs.associate = function(models) {
     Labs.belongsToMany(models.students,
     {
-      as: 'Students',
+      as: 'students',
       through: 'assignments',
       foreignKey: 'lab_id',
       otherKey: 'student_id'
     });
 
-    Labs.hasOne(models.submissions,
+    Labs.hasMany(models.submissions,
     {
-      as: 'submission',
+      as: 'submissions',
       foreignKey: 'submittable_id',
       scope: {
         submittable: 'lab'

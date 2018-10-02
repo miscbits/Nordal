@@ -12,10 +12,18 @@ module.exports = {
 function index(req, res, next) {
     Student.findById(req.params.student_id)
       .then((student) => {
-        student.getAssignments()
+        student.getLabs({
+            include: [{
+                model: models.submissions,
+                as: "submission"
+            }]
+        })
         .then(assignments => {
             return res.status(200).json(assignments);
         })
+        .catch(err => {
+            return next(err);
+        });
       })
       .catch(err => {
         return next(err)

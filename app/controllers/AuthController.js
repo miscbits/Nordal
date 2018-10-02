@@ -1,6 +1,6 @@
 const axios = require('axios');
-const sequelize = require('../models').sequelize;
-const Student = sequelize.import("../models/student");
+const models = require('../models');
+const Student = models.students;
 const querystring = require('querystring');
 
 module.exports = {
