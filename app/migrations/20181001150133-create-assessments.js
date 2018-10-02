@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       level: {
-        type: Sequelize.ENUM('Quiz', 'Practice'),
+        type: Sequelize.ENUM('Quiz', 'Practice', 'Exam'),
 
       },
       max_score: {
