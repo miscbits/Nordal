@@ -15,7 +15,10 @@ function index(req, res, next) {
         student.getLabs({
             include: [{
                 model: models.submissions,
-                as: "submission"
+                as: "submissions",
+                where: {
+                    student_id: student.id
+                }
             }]
         })
         .then(assignments => {
