@@ -18,7 +18,7 @@ module.exports = {
             },
         })
         .then((token_response) => {
-            console.log("access_token: " + token_response.data.access_token);
+            console.log(token_response.data.access_token)
             axios.get('https://api.github.com/user', {
                 headers: {
                     Accept: "application/json",
@@ -30,8 +30,7 @@ module.exports = {
                     where: {
                         github_username: response.data.login
                     }
-                }).then((students) => {
-                    const student = students.dataValues;
+                }).then((student) => {
                     if (student == null) {
                         return res.status(401).json('Github username is not a listed student')
                     }
@@ -39,8 +38,8 @@ module.exports = {
                         Student.update({
                             github_id: response.data.id,
                             github_username: response.data.login,
-                            name: response.data.name
-                            // email: response.data.email
+                            name: response.data.name,
+                            email: response.data.email
                         },
                         {
                             where: {
@@ -81,6 +80,7 @@ module.exports = {
             },
         })
         .then((response) => {
+            console.log(response.data.access_token)
             axios.get("https://www.googleapis.com/userinfo/v2/me", {
                 headers: {
                     Authorization: "Bearer " + response.data.access_token

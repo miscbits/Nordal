@@ -12,6 +12,9 @@ var labsRouter = require('./app/routes/labs');
 var studentsRouter = require('./app/routes/student');
 var assessmentsRouter = require('./app/routes/assessments');
 var submissionsRouter = require('./app/routes/submissions');
+var UserIsAuthenticated = require('./app/middleware/UserIsAuthenticated');
+var StudentIsRequired = require('./app/middleware/UserIsAuthenticated');
+var StaffIsRequired = require('./app/middleware/UserIsAuthenticated');
 
 var app = express();
 
@@ -27,10 +30,14 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', indexRouter);
+
+app.use(UserIsAuthenticated, StudentIsRequired, StaffIsRequired)
+
 app.use('/labs', labsRouter);
 app.use('/students', studentsRouter);
 app.use('/assessments', assessmentsRouter);
 app.use('/submissions', submissionsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

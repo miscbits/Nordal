@@ -3,14 +3,13 @@ var router = express.Router();
 
 var StudentController = require('../controllers/StudentController');
 var StudentAssignmentsController = require('../controllers/StudentAssignmentsController');
-var UserIsStaff = require('../middleware/UserIsStaff');
 
 // ROUTE BASE - /students
-router.get   ('/',    StudentController.index);
-router.get   ('/:id', StudentController.show);
-router.post  ('/',    StudentController.store);
-router.put   ('/:id', StudentController.update);
-router.delete('/:id', StudentController.destroy);
+router.get   ('/',            StudentController.index);
+router.get   ('/:student_id', StudentController.show);
+router.post  ('/',            StudentController.store);
+router.put   ('/:student_id', StudentController.update);
+router.delete('/:student_id', StudentController.destroy);
 
 router.post('/assign/:id', StudentAssignmentsController.assign)
 

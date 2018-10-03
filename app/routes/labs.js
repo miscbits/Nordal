@@ -3,7 +3,6 @@ var router = express.Router();
 
 var LabsController = require('../controllers/LabsController');
 var LabsStudentsController = require('../controllers/LabsStudentsController');
-var UserIsStaff = require('../middleware/UserIsStaff');
 
 // ROUTE BASE - /labs
 router.get('/', LabsController.index);
