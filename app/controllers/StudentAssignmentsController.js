@@ -18,7 +18,8 @@ function index(req, res, next) {
                 as: "submissions",
                 where: {
                     student_id: student.id
-                }
+                },
+                required: false
             }]
         })
         .then(assignments => {
