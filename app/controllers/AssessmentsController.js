@@ -33,6 +33,7 @@ function store(req, res, next) {
     , level: req.body.level
     , max_score: req.body.max_score
     , name: req.body.name
+    , assigned_date: req.body.assigned_date
   }
 
   Assessment.build(transientAssessment)
@@ -64,6 +65,9 @@ function update(req, res, next) {
             }
             if (req.body.max_score) {
                 updateVals.max_score = req.body.max_score;
+            }
+            if (req.body.assigned_date) {
+                updateVals.assigned_date = req.body.assigned_date;
             }
 
             assessment.update(updateVals)

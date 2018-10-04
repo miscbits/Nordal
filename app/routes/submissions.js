@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var SubmissionsController = require('../controllers/SubmissionsController');
+var StaffValidator = require('../middleware/StaffValidator');
+
+router.use(StaffValidator);
 
 // ROUTE BASE - /submissions
 router.get('/', SubmissionsController.index);

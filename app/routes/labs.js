@@ -3,6 +3,9 @@ var router = express.Router();
 
 var LabsController = require('../controllers/LabsController');
 var LabsStudentsController = require('../controllers/LabsStudentsController');
+var StaffValidator = require('../middleware/StaffValidator');
+
+router.use(StaffValidator);
 
 // ROUTE BASE - /labs
 router.get('/', LabsController.index);

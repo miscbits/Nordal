@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var AssessmentsController = require('../controllers/AssessmentsController');
+var StaffValidator = require('../middleware/UserIsAuthenticated');
+
+router.use(StaffValidator);
 
 // ROUTE BASE - /assessments
 router.get('/', AssessmentsController.index);
