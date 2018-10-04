@@ -19,7 +19,7 @@ function index(req, res, next) {
 }
 
 function show(req, res, next) {
-  Student.findById(req.params.id)
+  Student.findById(req.params.student_id)
     .then((students => {
       return res.status(200)
         .json(students);    
@@ -50,7 +50,7 @@ function store(req, res, next) {
 }
 
 function update(req, res, next) {
-    Student.findById(req.params.id)
+    Student.findById(req.params.student_id)
         .then((student) => {
             let updateVals = {};
 
@@ -87,7 +87,7 @@ function update(req, res, next) {
 function destroy(req, res, next) {
     const affected_rows = Student.destroy({
         where: {
-          id: req.params.id
+          id: req.params.student_id
         }
     });
 
