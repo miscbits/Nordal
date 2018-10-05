@@ -1,6 +1,4 @@
-const env = require('dotenv').config().parsed;
-
-console.log(env)
+const env = require('dotenv').load().parsed;
 
 module.exports = {
   development: {
