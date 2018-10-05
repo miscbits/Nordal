@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var AssessmentsController = require('../controllers/AssessmentsController');
-var StaffValidator = require('../middleware/UserIsAuthenticated');
+var StaffValidator = require('../middleware/StaffValidator');
 
 router.use(StaffValidator);
 
