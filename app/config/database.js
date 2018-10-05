@@ -1,5 +1,7 @@
 const env = require('dotenv').config().parsed;
 
+console.log(env)
+
 module.exports = {
   development: {
     username: env.DB_USER,
