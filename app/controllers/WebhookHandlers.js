@@ -41,11 +41,11 @@ function labHandler(req, res, next) {
         return res.status(200).send();
       })
       .catch(err => {
-        return res.status(500).json(err);
+        return res.status(500).json("something went wrong building this submission");
       }
     );
   }).catch(err => {
-    return res.status(404).json(err);
+    return res.status(404).json("something went wrong finding the lab");
   });
 }
 
