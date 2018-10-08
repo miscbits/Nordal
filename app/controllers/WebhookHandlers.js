@@ -41,11 +41,11 @@ function labHandler(req, res, next) {
         return res.status(200).send();
       })
       .catch(err => {
-        return next(err);
+        return res.status(500).json(err);
       }
     );
   }).catch(err => {
-    return next(err);
+    return res.status(404).json(err);
   });
 }
 
