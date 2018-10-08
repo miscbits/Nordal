@@ -26,7 +26,7 @@ function labHandler(req, res, next) {
     }
   }).then(lab => {
     if(!lab) {
-      return res.status(404).json({message: "Lab not assigned to this user"});
+      return res.status(404).json({message: "This lab was not assigned to user: " + req.body.pull_request.user.login});
     }
 
     transientSubmission = {

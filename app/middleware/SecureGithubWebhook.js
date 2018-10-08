@@ -8,9 +8,9 @@ module.exports = (req, res, next) => {
 
   const hmac = crypto.createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
   const digest = 'sha1=' + hmac.update(payload).digest('hex')
-  const checksum = req.headers["X-Hub-Signature"]
+  const checksum = req.headers['x-hub-signature']
   if (!checksum || !digest || checksum !== digest) {
-    return next(`Request body digest (${digest}) did not match X-Hub-Signature (${checksum})`)
+    return res.status(401).json("Request body digest did not match X-Hub-Signature");
   }
   return next()
 }
