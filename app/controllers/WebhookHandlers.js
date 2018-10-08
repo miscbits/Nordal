@@ -11,7 +11,7 @@ module.exports = {
 
 
 function labHandler(req, res, next) {
-  let lab_url = req.body.html_url;
+  let lab_url = req.body.repository.html_url;
 
   Lab.findOne({
     where: {
@@ -30,12 +30,16 @@ function labHandler(req, res, next) {
     }
 
     transientSubmission = {
-        pr_url: req.body.pull_request.url
-      , submittable: 'lab'
+        submittable: 'lab'
       , student_id: lab.students[0].id
       , submittable_id: lab.id
     }
-    Submission.findOrCreate({where: transientSubmission})
+    Submission.findOrCreate({
+        where: transientSubmission,
+        defaults: {
+          pr_url: req.body.pull_request.url
+        }
+      })
       .then((submission) => {
         return res.status(200).send();
       })
@@ -49,7 +53,7 @@ function labHandler(req, res, next) {
 }
 
 function assessmentHandler(req, res, next) {
-  let assessment_url = req.body.html_url;
+  let assessment_url = req.body.repository.html_url;
 
   assessment_promise = Assessment.findOne({
     where: {
@@ -68,14 +72,17 @@ function assessmentHandler(req, res, next) {
     student = resolutions[1];
 
     transientSubmission = {
-        pr_url: req.body.pull_request.url
-      , submittable: 'assessment'
+        submittable: 'assessment'
       , student_id: student.id
       , submittable_id: assessment.id
     }
 
-    Submission.findOrCreate({where: transientSubmission})
-      .save()
+    Submission.findOrCreate({
+        where: transientSubmission,
+        defaults: {
+          pr_url: req.body.pull_request.url
+        }
+      })
       .then((submission) => {
         return res.status(200).send();
       })
