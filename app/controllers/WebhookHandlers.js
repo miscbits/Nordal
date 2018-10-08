@@ -35,8 +35,7 @@ function labHandler(req, res, next) {
       , student_id: lab.students[0].id
       , submittable_id: lab.id
     }
-    Submission.build(transientSubmission)
-      .save()
+    Submission.findOrCreate({where: transientSubmission})
       .then((submission) => {
         return res.status(200).send();
       })
@@ -75,7 +74,7 @@ function assessmentHandler(req, res, next) {
       , submittable_id: assessment.id
     }
 
-    Submission.build(transientSubmission)
+    Submission.findOrCreate({where: transientSubmission})
       .save()
       .then((submission) => {
         return res.status(200).send();
