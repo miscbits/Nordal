@@ -54,7 +54,7 @@ function update(req, res, next) {
             let updateVals = {};
 
             if (req.body.url) {
-                updateVals.url = req.body.url;
+                updateVals.url = req.body.url.replace(/\/$/, '');
             }
             if (req.body.name) {
                 updateVals.name = req.body.name;
