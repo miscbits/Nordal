@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
   const digest = 'sha1=' + hmac.update(payload).digest('hex')
   const checksum = req.headers["X-Hub-Signature"]
   if (!checksum || !digest || checksum !== digest) {
-    return next(`Request body digest (${digest}) did not match ${headerKey} (${checksum})`)
+    return next(`Request body digest (${digest}) did not match X-Hub-Signature (${checksum})`)
   }
   return next()
 }
