@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
         }
 
         req.authenticatedUserIsStaff = true;
-        req.staffEmail = 'wilhem@zipcodewilmington.com'
+        req.staffEmail = person.data.email
         next();
 
     })

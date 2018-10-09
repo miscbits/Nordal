@@ -87,6 +87,7 @@ module.exports = {
                 }
             })
             .then((person) => {
+                console.log(person)
                 if (person.data.hd != "zipcodewilmington.com") {
                     return res.status(401).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
                 }
