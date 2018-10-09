@@ -9,6 +9,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./app/routes/index');
 var labsRouter = require('./app/routes/labs');
+var gradesRouter = require('./app/routes/grades');
 var studentsRouter = require('./app/routes/student');
 var assessmentsRouter = require('./app/routes/assessments');
 var submissionsRouter = require('./app/routes/submissions');
@@ -35,6 +36,7 @@ app.use('/', indexRouter);
 app.use(UserIsAuthenticated, StudentIsRequired, StaffIsRequired)
 
 app.use('/labs', labsRouter);
+app.use('/grades', gradesRouter);
 app.use('/students', studentsRouter);
 app.use('/assessments', assessmentsRouter);
 app.use('/submissions', submissionsRouter);

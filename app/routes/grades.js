@@ -5,7 +5,7 @@ var GradesController = require('../controllers/GradesController');
 var StaffValidator = require('../middleware/StaffValidator');
 var StaffStudentValidator = require('../middleware/StaffOrStudentValidator');
 
-// ROUTE BASE - /students/:student_id/comments
+// ROUTE BASE - /grades
 router.get   ('/', StaffValidator, GradesController.index);
 router.get   ('/:id', StaffValidator, GradesController.show);
 router.post  ('/', StaffValidator, GradesController.store);
