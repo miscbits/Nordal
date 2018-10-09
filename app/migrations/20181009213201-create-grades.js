@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comments', {
+    return queryInterface.createTable('grades', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,11 +11,11 @@ module.exports = {
       student_id: {
         type: Sequelize.INTEGER
       },
-      body: {
-        type: Sequelize.STRING
+      assessment_id: {
+        type: Sequelize.INTEGER
       },
-      note_taker: {
-        type: Sequelize.STRING
+      grade: {
+        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,
@@ -30,6 +30,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('comments');
+    return queryInterface.dropTable('grades');
   }
 };

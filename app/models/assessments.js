@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         submittable: 'assessment'
       }
     });
+
+    assessments.hasMany(models.grades, {
+        as: "grades",
+        foreignKey: 'assessment_id'
+    });
+
   };
   return assessments;
 };
