@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var StudentController = require('../controllers/StudentController');
-var StaffValidator, StudentAssignmentsController = require('../controllers/StudentAssignmentsController');
+var StudentAssignmentsController = require('../controllers/StudentAssignmentsController');
 var StaffValidator = require('../middleware/StaffValidator');
 var StaffStudentValidator = require('../middleware/StaffOrStudentValidator');
 

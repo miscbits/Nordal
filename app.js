@@ -13,8 +13,8 @@ var studentsRouter = require('./app/routes/student');
 var assessmentsRouter = require('./app/routes/assessments');
 var submissionsRouter = require('./app/routes/submissions');
 var UserIsAuthenticated = require('./app/middleware/UserIsAuthenticated');
-var StudentIsRequired = require('./app/middleware/UserIsAuthenticated');
-var StaffIsRequired = require('./app/middleware/UserIsAuthenticated');
+var StudentIsRequired = require('./app/middleware/StudentIsRequired');
+var StaffIsRequired = require('./app/middleware/StaffIsRequired');
 
 var app = express();
 

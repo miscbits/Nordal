@@ -5,5 +5,5 @@ module.exports = (req, res, next) => {
         return next();
     };
 
-    return res.status(413).json('You do not have permission to view this content');
+    return res.status(401).json('You do not have permission to view this content');
 }
