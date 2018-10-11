@@ -40,7 +40,7 @@ app.use('/grades', gradesRouter);
 app.use('/students', studentsRouter);
 app.use('/assessments', assessmentsRouter);
 app.use('/submissions', submissionsRouter);
-app.use('/students/:student_id/comments', commentsRouter);
+app.use('/', commentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

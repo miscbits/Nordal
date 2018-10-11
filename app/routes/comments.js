@@ -6,11 +6,11 @@ var StaffValidator = require('../middleware/StaffValidator');
 
 router.use(StaffValidator);
 
-// ROUTE BASE - /students/:student_id/comments
-router.get   ('/', StudentCommentsController.index);
-router.get   ('/:id', StudentCommentsController.show);
-router.post  ('/', StudentCommentsController.store);
-router.put   ('/:id', StudentCommentsController.update);
-router.delete('/:id', StudentCommentsController.destroy);
+// ROUTE BASE - /
+router.get   ('/students/:student_id/comments', StudentCommentsController.index);
+router.get   ('/students/:student_id/comments/:id', StudentCommentsController.show);
+router.post  ('/students/:student_id/comments', StudentCommentsController.store);
+router.put   ('/students/:student_id/comments/:id', StudentCommentsController.update);
+router.delete('/students/:student_id/comments/:id', StudentCommentsController.destroy);
 
 module.exports = router;

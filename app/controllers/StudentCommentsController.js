@@ -11,6 +11,7 @@ module.exports = {
 };
 
 function index(req, res, next) {
+  console.log(req)
     Comment.findAll({
       where: {
         student_id: req.params.student_id
@@ -31,7 +32,7 @@ function show(req, res, next) {
   })
   .then((comment => {
       if (comment) {
-        return res.status(200).json(comments);
+        return res.status(200).json(comment);
       } else {
         return res.status(404).send();
       }
@@ -40,6 +41,7 @@ function show(req, res, next) {
 }
 
 function store(req, res, next) {
+  console.log(req.params)
   transientComment = {
       body: req.body.body
     , student_id: req.params.student_id
@@ -75,7 +77,7 @@ function update(req, res, next) {
         })
         .then((comment) => {
             if (!comment) {
-              return res.status(404).send();
+              return res.status(404).json({message: "no comment with id found for student"});
             }
             comment.update(updateVals)
               .then((updatedComment) => {
@@ -89,12 +91,13 @@ function update(req, res, next) {
 }
 
 function destroy(req, res, next) {
-    const affected_rows = Comment.destroy({
+    Comment.destroy({
         where: {
           id: req.params.id,
-          student_id: request.params.student_id
+          student_id: req.params.student_id
         }
+    }).then(affected_rows => {
+        return res.status(200).json({message: "success", affected_rows: affected_rows});
     });
 
-    return res.status(200).json({message: "success"});
 }
