@@ -16,6 +16,14 @@ function index(req, res, next) {
                 student_id: req.params.student_id
             },
             required: false
+        },
+        {
+            model: models.submissions,
+            as: "submissions",
+            where: {
+                student_id: req.params.student_id
+            },
+            required: false
         }]
     }).then(assessments => {
         return res.status(200).json(assessments);
