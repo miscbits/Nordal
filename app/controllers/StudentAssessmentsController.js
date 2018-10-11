@@ -11,6 +11,7 @@ function index(req, res, next) {
     Assessment.findAll({
         include: [{
             model: Grade,
+            as: 'grades',
             where: {
                 student_id: req.params.student_id
             },
