@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   assessments.associate = function(models) {
     assessments.hasOne(models.submissions,
     {
-      as: 'submission',
+      as: 'submissions',
       foreignKey: 'submittable_id',
       scope: {
         submittable: 'assessment'
