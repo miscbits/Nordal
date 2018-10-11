@@ -18,7 +18,6 @@ module.exports = {
             },
         })
         .then((token_response) => {
-            console.log(token_response.data.access_token)
             axios.get('https://api.github.com/user', {
                 headers: {
                     Accept: "application/json",
@@ -80,14 +79,12 @@ module.exports = {
             },
         })
         .then((response) => {
-            console.log(response.data.access_token)
             axios.get("https://www.googleapis.com/userinfo/v2/me", {
                 headers: {
                     Authorization: "Bearer " + response.data.access_token
                 }
             })
             .then((person) => {
-                console.log(person)
                 if (person.data.hd != "zipcodewilmington.com") {
                     return res.status(401).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
                 }

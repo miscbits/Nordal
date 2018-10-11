@@ -1,9 +1,9 @@
 module.exports = {
   development: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
+    username: 'postgres',
+    password: 'password',
+    database: 'portal',
+    host: 'localhost',
     dialect: 'postgres',
     define: {
       createdAt: 'created_at',
