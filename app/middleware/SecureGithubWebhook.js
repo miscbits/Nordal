@@ -7,10 +7,11 @@ module.exports = (req, res, next) => {
   }
 
   const hmac = crypto.createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
-  const digest = hmac.update(payload).digest('hex')
+  const digest = 'sha1=' + hmac.update(payload).digest('hex')
   const checksum = req.headers['x-hub-signature']
-  console.log(req.headers)
-  if (!checksum || !digest || (checksum !== digest && checksum !== 'sha1=' + digest)) {
+
+  //git tea doesnt support digest checks so you have to just check the secret in the payload
+  if (!checksum || !digest || (checksum !== digest && process.env.GITHUB_WEBHOOK_SECRET !== req.params.secret)) {
     return res.status(401).json("Request body digest did not match X-Hub-Signature");
   }
   return next()
