@@ -43,6 +43,14 @@ function show(req, res, next) {
                 submittable_id: req.params.id
             },
             required:false
+        },
+        {
+            model: models.grades,
+            as: "grades",
+            where: {
+                assessment_id: req.params.id
+            },
+            required:false
         }]
     }).then(students =>{
         return res.status(200).json(students);
