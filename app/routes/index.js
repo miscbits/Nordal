@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/auth/github", AuthController.github);
+router.post("/auth/github/refresh", AuthController.google_refresh);
 router.post("/auth/google", AuthController.google);
 
 router.post("/github/lab_submission",
