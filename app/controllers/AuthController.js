@@ -89,7 +89,7 @@ module.exports = {
                     return res.status(401).json({message: "Only Zipcode Wilmington Staff may log in using their Google Account"});
                 }
                 else {
-                    return res.status(200).json({person: person.data, access_token: response.data.access_token});
+                    return res.status(200).json({person: person.data, access_token: response.data.access_token, refresh_token: response.data.refresh_token});
                 }
             })
             .catch((error) => {
@@ -99,5 +99,27 @@ module.exports = {
         .catch((error) => {
             return next(error);
         });
+    },
+    google_refresh: function(req, res, next) {
+        axios.post('https://www.googleapis.com/oauth2/v4/token', querystring.stringify({
+            code: req.headers.code,
+            redirect_uri: req.headers.redirect_uri,
+            client_id: process.env.GOOGLE_CONSUMER_KEY,
+            client_secret: process.env.GOOGLE_CONSUMER_SECRET,
+            grant_type: "refresh_token"
+        }),
+        {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded"
+            },
+        })
+        .then((response) => {
+            return res.status(200).json({access_token: response.data.access_token});
+        })
+        .catch((error) => {
+            return next(error);
+        });
+
     }
+
 }
