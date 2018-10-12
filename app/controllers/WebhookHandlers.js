@@ -29,7 +29,11 @@ function labHandler(req, res, next) {
       return res.status(404).json({message: "This lab was not assigned to user: " + req.body.pull_request.user.login});
     }
 
-    transientSubmission = {
+    let pr_url = req.body.pull_request.url;
+    if(!pr_url) {
+      pr_url = req.body.pull_request.html_url;
+    }
+    let transientSubmission = {
         submittable: 'lab'
       , student_id: lab.students[0].id
       , submittable_id: lab.id
@@ -37,7 +41,7 @@ function labHandler(req, res, next) {
     Submission.findOrCreate({
         where: transientSubmission,
         defaults: {
-          pr_url: req.body.pull_request.url
+          pr_url: pr_url
         }
       })
       .then((submission) => {
@@ -71,6 +75,11 @@ function assessmentHandler(req, res, next) {
     assessment = resolutions[0];
     student = resolutions[1];
 
+    let pr_url = req.body.pull_request.url;
+    if(!pr_url) {
+      pr_url = req.body.pull_request.html_url;
+    }
+
     transientSubmission = {
         submittable: 'assessment'
       , student_id: student.id
@@ -80,7 +89,7 @@ function assessmentHandler(req, res, next) {
     Submission.findOrCreate({
         where: transientSubmission,
         defaults: {
-          pr_url: req.body.pull_request.url
+          pr_url: pr_url
         }
       })
       .then((submission) => {
