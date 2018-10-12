@@ -4,7 +4,8 @@ const Grade = models.grades;
 const Assessment = models.assessments;
 
 module.exports = {
-  index: index
+  index: index,
+  show: show
 };
 
 function index(req, res, next) {
@@ -30,4 +31,20 @@ function index(req, res, next) {
     }).catch(err => {
         return next(err);
     });
+}
+
+function show(req, res, next) {
+    Student.findAll({
+        include: [{
+            model: models.submissions,
+            as: "submissions",
+            where: {
+                submittable: 'assessment',
+                submittable_id: req.params.id
+            },
+            required:false
+        }]
+    }).then(students =>{
+        return res.status(200).json(students);
+    })
 }
