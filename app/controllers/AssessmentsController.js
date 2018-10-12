@@ -19,7 +19,17 @@ function index(req, res, next) {
 }
 
 function show(req, res, next) {
-  Assessment.findById(req.params.id)
+  Assessment.findById(req.params.id, {
+    include: [{
+        model: models.submissions,
+        as: "submissions",
+        required: false,
+        include: [{
+          model: models.students,
+          as: 'students'
+        }]
+      }]
+    })
     .then((assessments => {
       return res.status(200)
         .json(assessments);
