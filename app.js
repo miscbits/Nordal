@@ -26,8 +26,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Origin", process.env.ORIGIN);
+  res.header("Access-Control-Allow-Headers", "token, Content-Type, Accept");
   if ('OPTIONS' === req.method) {
       res.send(200);
   } else {
