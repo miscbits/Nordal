@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: Sequelize.STRING,
-      cell_number: Sequelize.INTEGER,
+      cell_number: Sequelize.STRING,
       email: {
         type: Sequelize.STRING,
         unique: true

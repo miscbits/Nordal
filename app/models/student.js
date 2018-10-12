@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     name: DataTypes.STRING,
-    cell_number: DataTypes.INTEGER,
+    cell_number: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
       unique: true
