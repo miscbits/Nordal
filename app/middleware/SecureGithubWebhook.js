@@ -11,8 +11,7 @@ module.exports = (req, res, next) => {
   const checksum = req.headers['x-hub-signature']
 
   //git tea doesnt support digest checks so you have to just check the secret in the payload
-  console.log(req.params)
-  if (!checksum || !digest || (checksum !== digest && process.env.GITHUB_WEBHOOK_SECRET !== req.params.secret)) {
+  if (!checksum || !digest || (checksum !== digest && process.env.GITHUB_WEBHOOK_SECRET !== req.body.secret)) {
     return res.status(401).json("Request body digest did not match X-Hub-Signature");
   }
   return next()
