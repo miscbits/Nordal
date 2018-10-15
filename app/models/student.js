@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     github_id: DataTypes.INTEGER,
     github_username: DataTypes.STRING,
+    section: DataTypes.STRING,
     created_at: {
       allowNull: false,
       type: DataTypes.DATE,

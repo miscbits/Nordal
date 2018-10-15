@@ -33,6 +33,7 @@ function store(req, res, next) {
     , email: req.body.email
     , cell_number: req.body.cell_number
     , github_id: null
+    , section: req.body.section
     , github_username: req.body.github_username
   }
 
@@ -63,11 +64,8 @@ function update(req, res, next) {
             if (req.body.cell_number) {
                 updateVals.cell_number = req.body.cell_number;
             }
-            if (req.body.email) {
-                updateVals.email = req.body.email;
-            }
-            if (req.body.github_id) {
-                updateVals.github_id = req.body.github_id;
+            if (req.body.section) {
+                updateVals.section = req.body.section;
             }
             if (req.body.github_username) {
                 updateVals.github_username = req.body.github_username;
