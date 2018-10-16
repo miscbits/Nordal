@@ -28,6 +28,7 @@ app.use(cookieParser());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", process.env.ORIGIN);
   res.header("Access-Control-Allow-Headers", "token, Content-Type, Accept, code, redirect_uri, state");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
   if ('OPTIONS' === req.method) {
       res.send(200);
   } else {
