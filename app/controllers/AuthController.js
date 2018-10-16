@@ -27,7 +27,9 @@ module.exports = {
             .then((response) => {
                 Student.findOne({
                     where: {
-                        github_username: response.data.login
+                        github_username: {
+                            $iLike: response.data.login
+                        }
                     }
                 }).then((student) => {
                     if (student == null) {
