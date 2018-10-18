@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      zipcode_rocks_username: {
+        type: Sequelize.STRING,
+        unique: true
+      },
       section: Sequelize.STRING,
       created_at: {
         allowNull: false,

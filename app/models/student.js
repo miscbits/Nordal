@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     github_id: DataTypes.INTEGER,
     github_username: DataTypes.STRING,
+    zipcode_rocks_username: DataTypes.STRING,
     section: DataTypes.STRING,
     created_at: {
       allowNull: false,

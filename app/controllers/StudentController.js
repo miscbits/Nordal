@@ -35,6 +35,7 @@ function store(req, res, next) {
     , github_id: null
     , section: req.body.section
     , github_username: req.body.github_username
+    , zipcode_rocks_username: req.body.zipcode_rocks_username
   }
 
   Student.build(transientStudent)
@@ -69,6 +70,9 @@ function update(req, res, next) {
             }
             if (req.body.github_username) {
                 updateVals.github_username = req.body.github_username;
+            }
+            if (req.body.zipcode_rocks_username) {
+                updateVals.zipcode_rocks_username = req.body.zipcode_rocks_username;
             }
 
             student.update(updateVals)
