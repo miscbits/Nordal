@@ -75,7 +75,14 @@ function assessmentHandler(req, res, next) {
 
   student_promise = Student.findOne({
     where: {
-      github_username: req.body.pull_request.user.login
+      [Op.or]: {
+        github_username: {
+          $iLike: req.body.pull_request.user.login
+        },
+        zipcode_rocks_username: {
+          $iLike: req.body.pull_request.user.login
+        }
+      }
     }
   });
 
