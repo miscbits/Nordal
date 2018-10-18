@@ -23,8 +23,12 @@ function labHandler(req, res, next) {
       as: "students",
       where: {
         [Op.or]: {
-          github_username: req.body.pull_request.user.login,
-          zipcode_rocks_username: req.body.pull_request.user.login
+          github_username: {
+            $iLike: req.body.pull_request.user.login
+          },
+          zipcode_rocks_username: {
+            $iLike: req.body.pull_request.user.login
+          }
         }
       }
     }
