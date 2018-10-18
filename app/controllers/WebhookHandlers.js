@@ -1,5 +1,5 @@
 const models = require('../models');
-const Op = require('Sequelize').Op;
+const Op = require('sequelize').Op;
 const Lab = models.labs;
 const Assessment = models.assessments;
 const Submission = models.submissions;
