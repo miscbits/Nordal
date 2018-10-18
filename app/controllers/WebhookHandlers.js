@@ -1,4 +1,5 @@
 const models = require('../models');
+const Op = require('Sequelize').Op;
 const Lab = models.labs;
 const Assessment = models.assessments;
 const Submission = models.submissions;
@@ -21,7 +22,10 @@ function labHandler(req, res, next) {
       model: models.students,
       as: "students",
       where: {
-        github_username: req.body.pull_request.user.login
+        [Op.or]: {
+          github_username: req.body.pull_request.user.login,
+          zipcode_rocks_username: req.body.pull_request.user.login
+        }
       }
     }
   }).then(lab => {
