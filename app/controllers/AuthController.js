@@ -37,10 +37,10 @@ module.exports = {
                     }
                     else if (student.github_id == null) {
                         Student.update({
-                            github_id: response.data.id,
-                            github_username: response.data.login,
-                            name: response.data.name,
-                            email: response.data.email
+                            github_id: student.github_id || response.data.id,
+                            github_username: student.github_username || response.data.login,
+                            name: student.name || response.data.name,
+                            email: student.email || response.data.email
                         },
                         {
                             where: {
