@@ -1,7 +1,5 @@
 const models = require('../models');
 const Lab = models.labs;
-const Submission = models.submissions;
-const sequelize = require('sequelize');
 
 module.exports = {
   index: index,
