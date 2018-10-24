@@ -1,5 +1,7 @@
 const models = require('../models');
 const Lab = models.labs;
+const Submission = models.submissions;
+const sequelize = require('sequelize');
 
 module.exports = {
   index: index,
@@ -10,10 +12,15 @@ module.exports = {
 };
 
 function index(req, res, next) {
-    Lab.findAll()
+    Lab.findAll({
+        order: [['due_date', 'ASC']],
+        include: [{
+          model: models.submissions,
+          as: "submissions"}]
+    })
     .then((labs => {
       return res.status(200)
-        .json(labs);    
+        .json(labs);
     })
   );
 }
@@ -22,7 +29,7 @@ function show(req, res, next) {
   Lab.findById(req.params.id)
     .then((labs => {
       return res.status(200)
-        .json(labs);    
+        .json(labs);
     })
   );
 }
@@ -39,7 +46,7 @@ function store(req, res, next) {
     .save()
     .then((lab) => {
       return res.status(201)
-        .json(lab);    
+        .json(lab);
     })
     .catch(err => {
       return next(err);
