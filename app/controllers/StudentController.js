@@ -10,10 +10,26 @@ module.exports = {
 };
 
 function index(req, res, next) {
-    Student.findAll()
+    Student.findAll(
+      {
+          order: [['name', 'ASC']],
+          include: [{
+            model: models.submissions,
+            as: "submissions",
+            where: {
+              submittable: 'lab'
+            },
+          },
+          {
+            model: models.grades,
+            as: "grades",
+            order: [['assessment_id', 'ASC']]
+          }]
+      }
+    )
     .then((students => {
       return res.status(200)
-        .json(students);    
+        .json(students);
     })
   );
 }
@@ -22,7 +38,7 @@ function show(req, res, next) {
   Student.findById(req.params.student_id)
     .then((students => {
       return res.status(200)
-        .json(students);    
+        .json(students);
     })
   );
 }
@@ -42,7 +58,7 @@ function store(req, res, next) {
     .save()
     .then((student) => {
       return res.status(201)
-        .json(student);    
+        .json(student);
     })
     .catch(err => {
       return next(err);
