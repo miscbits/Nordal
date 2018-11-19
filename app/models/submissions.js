@@ -2,7 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const submissions = sequelize.define('submissions', {
     pr_url: DataTypes.STRING,
+    submission_url: DataTypes.STRING,
     submittable: DataTypes.STRING,
+    latest_hash: DataTypes.STRING,
     student_id: DataTypes.INTEGER,
     submittable_id: DataTypes.INTEGER
   }, {});
@@ -23,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'student_id',
       constraints: false,
       as: "students"
-    });    
+    });
 };
 
   return submissions;

@@ -16,12 +16,15 @@ module.exports = {
       },
       level: {
         type: Sequelize.ENUM('Quiz', 'Practice', 'Exam'),
-
       },
       max_score: {
         type: Sequelize.INTEGER
       },
       assigned_date: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
+      due_date: {
         allowNull: true,
         type: Sequelize.DATE,
       },

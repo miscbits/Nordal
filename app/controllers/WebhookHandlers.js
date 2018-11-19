@@ -38,9 +38,12 @@ function labHandler(req, res, next) {
     }
 
     let pr_url = req.body.pull_request.url;
+    let submission_url = req.body.pull_request.head.repo.html_url;
+    let latest_hash = req.body.pull_request.head.sha;
     if(!pr_url) {
       pr_url = req.body.pull_request.html_url;
     }
+
     let transientSubmission = {
         submittable: 'lab'
       , student_id: lab.students[0].id
@@ -49,11 +52,21 @@ function labHandler(req, res, next) {
     Submission.findOrCreate({
         where: transientSubmission,
         defaults: {
-          pr_url: pr_url
+            pr_url: pr_url
+          , latest_hash: latest_hash
+          , submission_url: submission_url
         }
       })
-      .then((submission) => {
-        return res.status(200).send();
+      .spread((submission, created) => {
+        if(!created) {
+          submission.update({
+            latest_hash: latest_hash
+          }).then(updated => {
+            return res.status(200).send();
+          })
+        } else{
+          return res.status(200).send();
+        }
       })
       .catch(err => {
         return res.status(500).json("something went wrong building this submission");
@@ -90,7 +103,15 @@ function assessmentHandler(req, res, next) {
     assessment = resolutions[0];
     student = resolutions[1];
 
+    var today = new Date();
+
+    if(assessment.due_date > today) {
+      return res.status(403).json({message: "This submission was turned in after the due date"});
+    }
+
     let pr_url = req.body.pull_request.url;
+    let submission_url = req.body.pull_request.head.repo.html_url;
+    let latest_hash = req.body.pull_request.head.sha;
     if(!pr_url) {
       pr_url = req.body.pull_request.html_url;
     }
@@ -104,11 +125,21 @@ function assessmentHandler(req, res, next) {
     Submission.findOrCreate({
         where: transientSubmission,
         defaults: {
-          pr_url: pr_url
+            pr_url: pr_url
+          , latest_hash: latest_hash
+          , submission_url: submission_url
         }
       })
-      .then((submission) => {
-        return res.status(200).send();
+      .spread((submission, created) => {
+        if(!created) {
+          submission.update({
+            latest_hash: latest_hash
+          }).then(updated => {
+            return res.status(200).send();
+          })
+        } else{
+          return res.status(200).send();
+        }
       })
       .catch(err => {
         return next(err);

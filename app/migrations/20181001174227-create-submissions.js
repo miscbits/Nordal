@@ -11,7 +11,13 @@ module.exports = {
       pr_url: {
         type: Sequelize.STRING
       },
+      submission_url: {
+        type: Sequelize.STRING
+      },
       submittable: {
+        type: Sequelize.STRING
+      },
+      latest_hash: {
         type: Sequelize.STRING
       },
       student_id: {
