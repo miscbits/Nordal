@@ -30,7 +30,9 @@ function show(req, res, next) {
 function store(req, res, next) {
   transientSubmission = {
       pr_url: req.body.pr_url
+    , submission_url: req.body.submission_url
     , submittable: req.body.submittable
+    , latest_hash: req.body.latest_hash
     , student_id: req.body.student_id
     , submittable_id: req.body.submittable_id
   }
@@ -56,8 +58,14 @@ function update(req, res, next) {
             if (req.body.pr_url) {
                 updateVals.pr_url = req.body.pr_url;
             }
+            if (req.body.submission_url) {
+                updateVals.submission_url = req.body.submission_url;
+            }
             if (req.body.submittable) {
                 updateVals.submittable = req.body.submittable;
+            }
+            if (req.body.latest_hash) {
+                updateVals.latest_hash = req.body.latest_hash;
             }
             if (req.body.student_id) {
                 updateVals.student_id = req.body.student_id;
